@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0e0d0c;color:#ece6dc;font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c9a978;text-decoration:none}a:hover{color:#e6cfa5}
+button,input,textarea{font-family:inherit}
+*{box-sizing:border-box}
+input::placeholder,textarea::placeholder{color:#6b645a}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0e0d0c;padding-bottom:84px">
+
+  <div style="background:#b23a2e;color:#fff;font-size:14px;text-align:center;padding:10px 16px;font-weight:500;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+    <span>런칭 특가 종료까지</span><span style="font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.05em">{{ timeLeft }}</span><span>· 오늘 주문 시 사은품 3종 증정</span>
+  </div>
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(14,13,12,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #2a2622">
+    <div style="max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <a href="#top" style="display:flex;flex-direction:column;line-height:1.1;color:#ece6dc">
+        <span style="font-family:'Noto Serif KR',serif;font-size:18px;letter-spacing:0.18em;font-weight:600">SAFEHOUSE CAFÉ</span>
+        <span style="font-size:10px;letter-spacing:0.32em;color:#a39a8d;margin-top:3px">TRAVEL CARRIER</span>
+      </a>
+      <nav style="display:flex;gap:24px;font-size:14px;flex-wrap:wrap;align-items:center">
+        <a href="#features" style="color:#ece6dc">기능</a>
+        <a href="#faq" style="color:#ece6dc">FAQ</a>
+        <button onClick="{{ startCheckout }}" style="background:#c9a978;color:#1a1612;border:none;padding:10px 18px;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#dcbf8f">구매하기</button>
+      </nav>
+    </div>
+  </header>
+
+  <section id="top" style="max-width:1200px;margin:0 auto;padding:40px 24px 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px;align-items:start">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div style="position:relative;aspect-ratio:4/5;max-height:640px;width:100%;overflow:hidden;background:#0a0908;display:flex;justify-content:center">
+        <img src="{{ mainImg }}" alt="SAFEHOUSE 스마트 캐리어" style="height:100%;max-width:100%;object-fit:contain;display:block">
+        <span style="position:absolute;top:16px;left:16px;background:#b23a2e;color:#fff;font-size:13px;font-weight:700;padding:6px 10px">{{ discountPct }} OFF</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px">
+        <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="6">
+          <button onClick="{{ t.onClick }}" style="aspect-ratio:1/1;padding:0;border:2px solid {{ t.ring }};background:#171513;cursor:pointer;overflow:hidden"><img src="{{ t.src }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h1 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(28px,3.6vw,40px);line-height:1.3;margin:0;text-wrap:pretty">지문으로 열리고, 폰이 충전되고,<br>밤길을 밝히는 캐리어</h1>
+        <p style="margin:0;color:#b8afa2;font-size:15px;line-height:1.7">SAFEHOUSE 스마트 캐리어 · 지문인식 TSA 잠금 · Qi 무선충전 · USB 듀얼포트 · LED 프레임</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:6px;padding:20px 0;border-top:1px solid #2a2622;border-bottom:1px solid #2a2622">
+        <span style="font-size:15px;color:#8a8175;text-decoration:line-through">정가 {{ wasText }}</span>
+        <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
+          <span style="font-size:22px;font-weight:900;color:#e0564a">{{ discountPct }}</span>
+          <span style="font-size:40px;font-weight:900;color:#ece6dc;letter-spacing:-0.01em">{{ priceText }}</span>
+        </div>
+        <span style="font-size:14px;color:#b8afa2">무이자 6개월 시 <b style="color:#ece6dc">월 {{ monthlyText }}</b> · 무료배송 · 내일 도착</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;background:#171513;border:1px solid #3a342d;padding:18px 20px">
+        <span style="font-size:14px;font-weight:700;color:#e6cfa5">지금 구매하면 사은품 3종 무료 (₩83,000 상당)</span>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:14px;color:#b8afa2">
+          <span>+ 분실방지 트래커 네임태그 <span style="color:#6b645a;text-decoration:line-through">₩29,000</span></span>
+          <span>+ 압축 패킹 큐브 4종 <span style="color:#6b645a;text-decoration:line-through">₩35,000</span></span>
+          <span>+ 방수 캐리어 커버 <span style="color:#6b645a;text-decoration:line-through">₩19,000</span></span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:14px;color:#a39a8d">사이즈</span>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+          <sc-for list="{{ sizes }}" as="s" hint-placeholder-count="3">
+            <button onClick="{{ s.onClick }}" style="background:{{ s.bg }};border:1px solid {{ s.border }};color:#ece6dc;padding:12px 8px;cursor:pointer;display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center">
+              <span style="font-size:15px;font-weight:700">{{ s.label }}</span>
+              <span style="font-size:12px;color:#a39a8d">{{ s.sub }}</span>
+              <span style="font-size:13px;color:#e6cfa5">{{ s.priceText }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:14px;color:#a39a8d">색상 · <span style="color:#ece6dc">{{ colorName }}</span></span>
+        <div style="display:flex;gap:12px">
+          <sc-for list="{{ colors }}" as="c" hint-placeholder-count="3">
+            <button onClick="{{ c.onClick }}" title="{{ c.name }}" style="width:40px;height:40px;border-radius:50%;background:{{ c.hex }};border:2px solid {{ c.ring }};outline:2px solid #0e0d0c;outline-offset:-5px;cursor:pointer"></button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#e0564a;font-weight:500">특가 물량 {{ stockLeft }}개 남음</span><span style="color:#a39a8d">지금 {{ viewers }}명이 보고 있어요</span></div>
+        <div style="height:5px;background:#2a2622"><div style="height:5px;width:{{ stockPct }};background:#e0564a"></div></div>
+      </div>
+
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;border:1px solid #3a342d">
+          <button onClick="{{ dec }}" style="background:none;border:none;color:#ece6dc;width:44px;height:56px;font-size:18px;cursor:pointer">−</button>
+          <span style="min-width:28px;text-align:center;font-size:16px">{{ qty }}</span>
+          <button onClick="{{ inc }}" style="background:none;border:none;color:#ece6dc;width:44px;height:56px;font-size:18px;cursor:pointer">+</button>
+        </div>
+        <button onClick="{{ startCheckout }}" style="flex:1;background:#c9a978;color:#1a1612;border:none;font-size:17px;font-weight:900;cursor:pointer" style-hover="background:#dcbf8f">{{ totalText }} 바로 구매</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;font-size:12px;color:#a39a8d;text-align:center">
+        <span style="border:1px solid #2a2622;padding:10px 4px">30일 무료 반품</span>
+        <span style="border:1px solid #2a2622;padding:10px 4px">2년 무상 보증</span>
+        <span style="border:1px solid #2a2622;padding:10px 4px">계좌이체 · 입금 확인 후 발송</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#c9a978;color:#1a1612">
+    <div style="max-width:1200px;margin:0 auto;padding:56px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:32px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em">WHY SO CHEAP?</span>
+        <h2 style="font-family:'Noto Serif KR',serif;font-weight:700;font-size:30px;margin:0;line-height:1.35">비슷한 스마트 캐리어는<br>30만원이 넘습니다</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;font-size:15px;line-height:1.7">
+        <span><b>백화점·면세점 입점 없이</b> 공장에서 바로 고객에게. 중간 유통 마진 약 40%를 뺐습니다.</span>
+        <span><b>연예인 광고 대신</b> 그 비용을 가격에 넣었습니다. 대신 후기로 증명합니다.</span>
+        <span><b>런칭 1차 물량만</b> 이 가격입니다. 소진되면 정가로 돌아갑니다.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" style="max-width:1200px;margin:0 auto;padding:88px 24px;display:flex;flex-direction:column;gap:72px">
+    <div style="display:flex;flex-direction:column;gap:12px;text-align:center;align-items:center">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">ALL IN ONE</span>
+      <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(28px,3.4vw,38px);margin:0">이 가격에, 이게 다 들어 있습니다</h2>
+    </div>
+    <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+      <div style="display:flex;flex-wrap:wrap;gap:48px;align-items:center;flex-direction:{{ f.dir }}">
+        <div style="flex:1 1 380px;aspect-ratio:4/3;overflow:hidden;background:#171513"><img src="{{ f.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        <div style="flex:1 1 340px;display:flex;flex-direction:column;gap:16px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#c9a978">{{ f.no }}</span>
+          <h3 style="font-family:'Noto Serif KR',serif;font-size:28px;font-weight:600;margin:0;line-height:1.4">{{ f.title }}</h3>
+          <p style="margin:0;color:#b8afa2;font-size:16px;line-height:1.8;text-wrap:pretty">{{ f.body }}</p>
+          <span style="font-size:14px;color:#e6cfa5">{{ f.point }}</span>
+        </div>
+      </div>
+    </sc-for>
+  </section>
+
+  <section id="led" style="border-top:1px solid #2a2622;background:#0a0908">
+    <div style="max-width:1200px;margin:0 auto;padding:88px 24px;display:flex;flex-direction:column;gap:40px">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">LED MODES</span>
+          <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(28px,3.4vw,36px);margin:0;line-height:1.35">상황에 맞춰 알아서 바뀌는<br>3가지 빛</h2>
+        </div>
+        <p style="margin:0;color:#a39a8d;font-size:15px;line-height:1.7;max-width:400px">손잡이 옆 버튼을 짧게 누르면 모드 전환, 길게 누르면 꺼집니다. 앱에서도 바꿀 수 있어요.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+        <div style="border:1px solid #2a2622;background:#121110;padding:32px 28px;display:flex;flex-direction:column;gap:18px">
+          <div style="height:4px;width:72px;background:#f2ede4;box-shadow:0 0 18px 2px rgba(242,237,228,0.55);border-radius:2px"></div>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a39a8d">01 · 은은한 화이트</span><h3 style="margin:0;font-size:22px;font-weight:700">일반 모드</h3></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#c9a978">언제 켜지나요</span><span style="font-size:15px;line-height:1.7">주변이 어두워지면 조도 센서가 감지해 자동으로 켜져요.</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#c9a978">어떻게 빛나나요</span><span style="font-size:15px;line-height:1.7;color:#b8afa2">프레임 테두리를 따라 부드러운 흰빛이 계속 유지돼요. 어두운 공항·카페에서 내 캐리어를 바로 찾을 수 있어요.</span></div>
+        </div>
+        <div style="border:1px solid #2a2622;background:#121110;padding:32px 28px;display:flex;flex-direction:column;gap:18px">
+          <div style="height:4px;width:72px;background:#7fb6ff;box-shadow:0 0 18px 2px rgba(127,182,255,0.6);border-radius:2px"></div>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a39a8d">02 · 밝은 블루</span><h3 style="margin:0;font-size:22px;font-weight:700">보행 모드</h3></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#c9a978">언제 켜지나요</span><span style="font-size:15px;line-height:1.7">손잡이를 뽑고 끌기 시작하면 모션 센서가 감지해 자동 전환돼요.</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#c9a978">어떻게 빛나나요</span><span style="font-size:15px;line-height:1.7;color:#b8afa2">하단 LED가 밝아져 발밑과 바퀴 앞을 비추고, 뒤에서 오는 차·자전거에 내 위치를 알려요. 밤길, 주차장, 새벽 출발에 유용해요.</span></div>
+        </div>
+        <div style="border:1px solid #2a2622;background:#121110;padding:32px 28px;display:flex;flex-direction:column;gap:18px">
+          <div style="height:4px;width:72px;background:#ff4a3d;box-shadow:0 0 18px 2px rgba(255,74,61,0.6);border-radius:2px"></div>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#a39a8d">03 · 깜빡이는 레드</span><h3 style="margin:0;font-size:22px;font-weight:700">경고 모드</h3></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#c9a978">언제 켜지나요</span><span style="font-size:15px;line-height:1.7">등록되지 않은 지문으로 3회 이상 시도할 때 · 잠긴 상태에서 누가 들고 갈 때 · 휴대폰과 10m 이상 멀어질 때</span></div>
+          <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:13px;color:#c9a978">어떻게 빛나나요</span><span style="font-size:15px;line-height:1.7;color:#b8afa2">빨간빛이 깜빡이며 경고음이 울리고, 휴대폰으로 즉시 알림이 와요. 분실·도난을 바로 알아챌 수 있어요.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #2a2622;background:#121110">
+    <div style="max-width:1200px;margin:0 auto;padding:80px 24px">
+      <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:32px;margin:0 0 32px">가격 비교해 보세요</h2>
+      <div style="overflow-x:auto">
+        <div style="min-width:600px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;font-size:15px">
+          <div style="padding:16px 0;border-bottom:1px solid #3a342d"></div>
+          <div style="padding:16px;border-bottom:1px solid #3a342d;color:#a39a8d;text-align:center">일반 캐리어</div>
+          <div style="padding:16px;border-bottom:1px solid #3a342d;color:#a39a8d;text-align:center">타사 스마트 캐리어</div>
+          <div style="padding:16px;border-bottom:1px solid #c9a978;background:#1c1915;color:#e6cfa5;text-align:center;font-weight:700">SAFEHOUSE</div>
+          <div style="padding:16px 0;border-bottom:1px solid #2a2622">20" 가격</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#a39a8d">10~20만원</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#a39a8d">30~50만원</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;background:#1c1915;font-weight:700;color:#e6cfa5">13.9만원</div>
+          <div style="padding:16px 0;border-bottom:1px solid #2a2622">지문인식 잠금</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#5c554c">—</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#a39a8d">일부</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;background:#1c1915;color:#c9a978">●</div>
+          <div style="padding:16px 0;border-bottom:1px solid #2a2622">무선충전 + USB</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#5c554c">—</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#a39a8d">USB만</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;background:#1c1915;color:#c9a978">●</div>
+          <div style="padding:16px 0;border-bottom:1px solid #2a2622">야간 LED</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#5c554c">—</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#5c554c">—</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;background:#1c1915;color:#c9a978">●</div>
+          <div style="padding:16px 0;border-bottom:1px solid #2a2622">사은품</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#5c554c">—</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;color:#5c554c">—</div><div style="padding:16px;border-bottom:1px solid #2a2622;text-align:center;background:#1c1915">3종 (₩83,000)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="max-width:840px;margin:0 auto;padding:88px 24px">
+    <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:32px;margin:0 0 24px">자주 묻는 질문</h2>
+    <div style="display:flex;flex-direction:column;border-top:1px solid #2a2622">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+        <div style="border-bottom:1px solid #2a2622">
+          <button onClick="{{ f.onClick }}" style="width:100%;background:none;border:none;color:#ece6dc;font-size:16px;text-align:left;padding:22px 0;display:flex;justify-content:space-between;gap:16px;cursor:pointer"><span>{{ f.q }}</span><span style="color:#c9a978">{{ f.icon }}</span></button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0 0 22px;font-size:15px;line-height:1.8;color:#b8afa2">{{ f.a }}</p></sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="position:relative;overflow:hidden;border-top:1px solid #2a2622">
+    <img src="assets/c_airport2.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35">
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:110px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px">
+      <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(28px,4vw,44px);margin:0;line-height:1.35">다음 여행은<br>SAFEHOUSE와 함께</h2>
+      <span style="font-size:16px;color:#ece6dc">특가 종료까지 <span style="font-family:'IBM Plex Mono',monospace;color:#e6cfa5">{{ timeLeft }}</span></span>
+      <button onClick="{{ startCheckout }}" style="background:#c9a978;color:#1a1612;border:none;padding:18px 40px;font-size:17px;font-weight:900;cursor:pointer" style-hover="background:#dcbf8f">{{ priceText }}에 구매하기</button>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #2a2622;background:#0a0908">
+    <div style="max-width:1200px;margin:0 auto;padding:44px 24px;display:flex;flex-direction:column;gap:14px;font-size:12px;color:#8a8175;line-height:1.9">
+      <span style="font-family:'Noto Serif KR',serif;font-size:15px;letter-spacing:0.18em;color:#ece6dc">SAFEHOUSE CAFÉ</span>
+      <span>상호 [상호명] · 대표 [대표자명] · 사업자등록번호 [000-00-00000] · 통신판매업신고 [제0000-지역-0000호]<br>주소 [사업장 주소] · 고객센터 [전화번호] · 이메일 [이메일]</span>
+      <div style="display:flex;gap:18px;flex-wrap:wrap"><a href="#" style="color:#a39a8d">이용약관</a><a href="#" style="color:#a39a8d">개인정보처리방침</a><a href="#" style="color:#a39a8d">교환·반품 안내</a></div>
+    </div>
+  </footer>
+
+  <div style="position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(21,19,17,0.96);backdrop-filter:blur(10px);border-top:1px solid #3a342d">
+    <div style="max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+        <span style="font-size:13px;color:#a39a8d">{{ sizeLabel }} · {{ colorName }} · 사은품 3종</span>
+        <div style="display:flex;gap:8px;align-items:baseline"><span style="font-size:15px;font-weight:900;color:#e0564a">{{ discountPct }}</span><span style="font-size:20px;font-weight:900">{{ priceText }}</span></div>
+      </div>
+      <button onClick="{{ startCheckout }}" style="background:#c9a978;color:#1a1612;border:none;padding:14px 32px;font-size:16px;font-weight:900;cursor:pointer;flex-shrink:0" style-hover="background:#dcbf8f">바로 구매</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ checkoutOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCheckout }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px">
+      <div onClick="{{ stop }}" style="background:#151311;border:1px solid #2a2622;width:100%;max-width:520px;max-height:92vh;overflow:auto;display:flex;flex-direction:column">
+        <div style="padding:20px 24px;border-bottom:1px solid #2a2622;display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:17px;font-weight:700">{{ stepTitle }}</span>
+          <button onClick="{{ closeCheckout }}" style="background:none;border:none;color:#a39a8d;font-size:14px;cursor:pointer">닫기 ✕</button>
+        </div>
+
+        <div style="padding:16px 24px;background:#121110;border-bottom:1px solid #2a2622;display:flex;gap:14px;align-items:center">
+          <img src="assets/c_hero.png" alt="" style="width:56px;height:56px;object-fit:cover">
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px;min-width:0"><span style="font-size:14px">SAFEHOUSE 스마트 캐리어 {{ sizeLabel }}</span><span style="font-size:12px;color:#a39a8d">{{ colorName }} · {{ qty }}개 · 사은품 3종</span></div>
+          <span style="font-size:15px;font-weight:700">{{ totalText }}</span>
+        </div>
+
+        <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px;display:flex;flex-direction:column;gap:14px">
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#a39a8d">받는 분<input value="{{ form.name }}" onChange="{{ onName }}" placeholder="이름" style="background:#0e0d0c;border:1px solid #3a342d;color:#ece6dc;padding:13px 14px;font-size:15px;outline:none"></label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#a39a8d">연락처<input value="{{ form.phone }}" onChange="{{ onPhone }}" placeholder="010-0000-0000" style="background:#0e0d0c;border:1px solid #3a342d;color:#ece6dc;padding:13px 14px;font-size:15px;outline:none"></label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#a39a8d">주소<input value="{{ form.addr }}" onChange="{{ onAddr }}" placeholder="도로명 주소, 상세주소" style="background:#0e0d0c;border:1px solid #3a342d;color:#ece6dc;padding:13px 14px;font-size:15px;outline:none"></label>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#a39a8d">배송 요청사항 (선택)<input value="{{ form.memo }}" onChange="{{ onMemo }}" placeholder="문 앞에 놓아주세요" style="background:#0e0d0c;border:1px solid #3a342d;color:#ece6dc;padding:13px 14px;font-size:15px;outline:none"></label>
+            <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#e0564a">{{ formError }}</span></sc-if>
+            <button onClick="{{ toStep2 }}" style="background:#c9a978;color:#1a1612;border:none;padding:16px;font-size:16px;font-weight:900;cursor:pointer;margin-top:6px" style-hover="background:#dcbf8f">다음 · 결제수단 선택</button>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px;display:flex;flex-direction:column;gap:16px">
+            <div style="border:1px solid #c9a978;background:#1c1915;padding:20px;display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:13px;color:#c9a978;font-weight:700">입금 계좌</span>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <span style="font-size:14px;color:#b8afa2">{{ bankName }} · 예금주 {{ bankHolder }}</span>
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.02em">{{ bankAccount }}</span>
+                </div>
+                <button onClick="{{ copyAccount }}" style="background:none;border:1px solid #3a342d;color:#ece6dc;padding:9px 14px;font-size:13px;cursor:pointer" style-hover="border-color:#c9a978">{{ copyLabel }}</button>
+              </div>
+              <span style="font-size:13px;color:#b8afa2;line-height:1.6">주문 후 <b style="color:#ece6dc">24시간 이내</b> 입금해 주세요. 입금 확인 즉시 발송되며, 기한이 지나면 주문이 자동 취소됩니다.</span>
+            </div>
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#a39a8d">입금자명<input value="{{ depositor }}" onChange="{{ onDepositor }}" placeholder="통장에 찍히는 이름" style="background:#0e0d0c;border:1px solid #3a342d;color:#ece6dc;padding:13px 14px;font-size:15px;outline:none"></label>
+            <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:#b8afa2;cursor:pointer"><input type="checkbox" checked="{{ wantReceipt }}" onChange="{{ toggleReceipt }}" style="width:18px;height:18px;accent-color:#c9a978">현금영수증 신청 (주문 연락처로 발급)</label>
+            <div style="display:flex;flex-direction:column;gap:8px;padding:16px 0;border-top:1px solid #2a2622;font-size:14px;color:#a39a8d">
+              <div style="display:flex;justify-content:space-between"><span>상품 금액</span><span>{{ wasTotalText }}</span></div>
+              <div style="display:flex;justify-content:space-between;color:#e0564a"><span>런칭 특가 할인</span><span>−{{ saveText }}</span></div>
+              <div style="display:flex;justify-content:space-between"><span>배송비</span><span>무료</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:18px;color:#ece6dc;font-weight:700;margin-top:6px"><span>입금하실 금액</span><span>{{ totalText }}</span></div>
+            </div>
+            <sc-if value="{{ payError }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#e0564a">{{ payError }}</span></sc-if>
+            <div style="display:flex;gap:8px">
+              <button onClick="{{ toStep1 }}" style="background:none;border:1px solid #3a342d;color:#ece6dc;padding:16px 18px;font-size:15px;cursor:pointer">이전</button>
+              <button onClick="{{ pay }}" style="flex:1;background:#c9a978;color:#1a1612;border:none;padding:16px;font-size:16px;font-weight:900;cursor:pointer" style-hover="background:#dcbf8f">{{ payBtnText }}</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:40px 24px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center">
+            <span style="width:56px;height:56px;border-radius:50%;background:#c9a978;color:#1a1612;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900">✓</span>
+            <span style="font-family:'Noto Serif KR',serif;font-size:24px;font-weight:600">주문이 접수되었습니다</span>
+            <span style="font-size:14px;color:#b8afa2">주문번호 <b style="color:#ece6dc;font-family:'IBM Plex Mono',monospace">{{ orderNo }}</b></span>
+            <div style="width:100%;border:1px solid #c9a978;background:#1c1915;padding:18px;display:flex;flex-direction:column;gap:8px;text-align:left;font-size:14px">
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#a39a8d">입금 금액</span><b style="font-size:18px">{{ totalText }}</b></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#a39a8d">입금 계좌</span><span style="text-align:right">{{ bankName }} <span style="font-family:'IBM Plex Mono',monospace">{{ bankAccount }}</span></span></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#a39a8d">예금주</span><span>{{ bankHolder }}</span></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#a39a8d">입금자명</span><span>{{ depositor }}</span></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:#a39a8d">입금 기한</span><span style="color:#e0564a">{{ deadlineText }}</span></div>
+            </div>
+            <button onClick="{{ copyAccount }}" style="width:100%;background:#c9a978;color:#1a1612;border:none;padding:14px;font-size:15px;font-weight:700;cursor:pointer">{{ copyLabel }}</button>
+            <span style="font-size:13px;color:#a39a8d;line-height:1.7">입금이 확인되면 {{ form.phone }}(으)로 발송 안내 문자를 보내드려요.</span>
+            <button onClick="{{ closeCheckout }}" style="background:none;border:1px solid #3a342d;color:#ece6dc;padding:14px 28px;font-size:15px;cursor:pointer;margin-top:8px">확인</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;stockLeft&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:47,&quot;min&quot;:0,&quot;max&quot;:300,&quot;step&quot;:1,&quot;unit&quot;:&quot;개&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;bankName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;[은행명]&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;계좌이체&quot;},&quot;bankAccount&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;[계좌번호]&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;계좌이체&quot;},&quot;bankHolder&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;[예금주]&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;계좌이체&quot;},&quot;orderWebhook&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;계좌이체&quot;}}">
+const SIZES=[
+ {label:'20"',sub:'기내용 · 2~4박',price:139000,was:259000},
+ {label:'26"',sub:'위탁용 · 5~10박',price:169000,was:319000},
+ {label:'20"+26"',sub:'세트 · 가장 인기',price:279000,was:578000}
+];
+const COLORS=[{name:'샴페인 골드',hex:'#b59a74'},{name:'매트 블랙',hex:'#1f1d1b'},{name:'실버 그레이',hex:'#a7a9ab'}];
+const THUMBS=['assets/c_hero.png','assets/c_led.png','assets/c_finger2.png','assets/c_charge2.png','assets/c_interior2.png','assets/scene_carrier.png'];
+const FEATURES=[
+ {img:'assets/c_finger2.png',title:'원터치 지문인식 TSA 잠금',body:'비밀번호를 외울 필요 없이 손가락만 대면 0.3초 만에 열립니다. 최대 10개 지문 등록, 공항 검색대 TSA 키 호환.',point:'→ 다이얼 자물쇠 잊어버릴 걱정 끝'},
+ {img:'assets/c_charge2.png',title:'Qi 무선충전 + USB 듀얼포트',body:'공항 대기 중 콘센트를 찾아 헤맬 필요 없어요. 캐리어 위에 폰을 올리면 충전, USB-C·A로 두 기기 동시 충전.',point:'→ 보조배터리 따로 챙길 필요 없음'},
+ {img:'assets/c_led.png',title:'나이트 세이프티 LED 프레임',body:'새벽 출발, 늦은 밤 귀가. 어두운 골목과 주차장에서도 캐리어가 길을 밝히고 차량에 내 위치를 알립니다.',point:'→ 일반 · 보행 · 경고 3가지 모드'},
+ {img:'assets/c_interior2.png',title:'분리형 수납 + 알루미늄 프레임',body:'노트북·의류·세면도구를 따로 정리하는 분리형 내부. 충격에 강한 폴리카보네이트와 알루미늄 프레임.',point:'→ 사은품 패킹 큐브가 딱 맞게 들어갑니다'}
+];
+const FAQS=[
+ {q:'배터리가 다 되면 캐리어를 못 여나요?',a:'아닙니다. 숨겨진 비상 열쇠가 있고, 하단 USB-C 단자에 보조배터리를 꽂으면 바로 지문 잠금이 작동합니다.'},
+ {q:'비행기에 들고 탈 수 있나요?',a:'내장 배터리는 항공 규정(100Wh) 이하이며 분리형입니다. 위탁 수하물로 보낼 때는 배터리만 빼서 기내에 들고 타시면 됩니다.'},
+ {q:'가격이 너무 싼데 품질은 괜찮나요?',a:'유통 마진과 광고비를 뺀 가격입니다.'},
+ {q:'언제 받을 수 있나요?',a:'계좌이체 입금이 평일 오후 2시 전에 확인되면 당일 출고되어 대부분 다음 날 도착합니다.'},
+ {q:'사은품은 언제까지 주나요?',a:'런칭 특가 기간 주문 건에 한해 함께 발송됩니다. 특가 물량이 소진되면 종료됩니다.'}
+];
+const won=n=>'₩'+n.toLocaleString('ko-KR');
+const pad=n=>String(n).padStart(2,'0');
+class Component extends DCLogic {
+  state={payErr:'',paying:false,depositor:'',receipt:false,copied:false,deadline:0,size:0,color:0,qty:1,img:0,faq:0,step:0,pay:0,form:{name:'',phone:'',addr:'',memo:''},err:'',orderNo:'',now:Date.now(),viewers:23};
+  componentDidMount(){
+    let end=+localStorage.getItem('sh_deal_end');
+    if(!end||end<Date.now()){end=Date.now()+(5*3600+47*60)*1000;localStorage.setItem('sh_deal_end',end);}
+    this.end=end;
+  }
+  componentWillUnmount(){clearInterval(this.iv);}
+  setForm(k){return e=>{const v=e.target.value;this.setState(s=>({form:{...s.form,[k]:v},err:''}));};}
+  renderVals(){
+    const s=this.state,sz=SIZES[s.size],stockLeft=this.props.stockLeft??47,stockTotal=300;
+    const left=Math.max(0,(this.end||s.now)-s.now)/1000;
+    const timeLeft=`${pad(Math.floor(left/3600))}:${pad(Math.floor(left%3600/60))}:${pad(Math.floor(left%60))}`;
+    const total=sz.price*s.qty,wasTotal=sz.was*s.qty;
+    return {
+      timeLeft,mainImg:THUMBS[s.img],
+      thumbs:THUMBS.map((src,i)=>({src,ring:i===s.img?'#c9a978':'transparent',onClick:()=>this.setState({img:i})})),
+      discountPct:Math.round((1-sz.price/sz.was)*100)+'%',
+      priceText:won(sz.price),wasText:won(sz.was),monthlyText:won(Math.ceil(sz.price/6/10)*10),
+      sizes:SIZES.map((x,i)=>({...x,priceText:won(x.price),bg:i===s.size?'#1c1915':'transparent',border:i===s.size?'#c9a978':'#3a342d',onClick:()=>this.setState({size:i})})),
+      sizeLabel:sz.label,
+      colors:COLORS.map((c,i)=>({...c,ring:i===s.color?'#c9a978':'#3a342d',onClick:()=>this.setState({color:i})})),
+      colorName:COLORS[s.color].name,
+      stockLeft,stockPct:Math.round(stockLeft/stockTotal*100)+'%',viewers:s.viewers,
+      qty:s.qty,inc:()=>this.setState({qty:Math.min(9,s.qty+1)}),dec:()=>this.setState({qty:Math.max(1,s.qty-1)}),
+      totalText:won(total),wasTotalText:won(wasTotal),saveText:won(wasTotal-total),
+      features:FEATURES.map((f,i)=>({...f,no:'0'+(i+1),dir:i%2?'row-reverse':'row'})),
+      faqs:FAQS.map((x,i)=>({...x,open:s.faq===i,icon:s.faq===i?'−':'+',onClick:()=>this.setState({faq:s.faq===i?-1:i})})),
+      startCheckout:()=>this.setState({step:1}),closeCheckout:()=>this.setState({step:0}),stop:e=>e.stopPropagation(),
+      checkoutOpen:s.step>0,isStep1:s.step===1,isStep2:s.step===2,isStep3:s.step===3,
+      stepTitle:['','배송 정보','계좌이체 결제','주문 접수 완료'][s.step],
+      form:s.form,formError:s.err,
+      onName:this.setForm('name'),onPhone:this.setForm('phone'),onAddr:this.setForm('addr'),onMemo:this.setForm('memo'),
+      toStep1:()=>this.setState({step:1}),
+      toStep2:()=>{const f=s.form;if(!f.name.trim()||!f.phone.trim()||!f.addr.trim())return this.setState({err:'받는 분, 연락처, 주소를 입력해 주세요.'});this.setState({step:2});},
+      bankName:this.props.bankName||'[은행명]',bankAccount:this.props.bankAccount||'[계좌번호]',bankHolder:this.props.bankHolder||'[예금주]',
+      depositor:s.depositor||s.form.name,onDepositor:e=>this.setState({depositor:e.target.value}),
+      wantReceipt:s.receipt,toggleReceipt:()=>this.setState({receipt:!s.receipt}),
+      copyLabel:s.copied?'복사했어요 ✓':'계좌번호 복사',
+      copyAccount:()=>{const t=(this.props.bankName||'')+' '+(this.props.bankAccount||'');try{navigator.clipboard.writeText(t.trim());}catch(e){}this.setState({copied:true});clearTimeout(this._c);this._c=setTimeout(()=>this.setState({copied:false}),1600);},
+      deadlineText:s.deadline?new Date(s.deadline).toLocaleString('ko-KR',{month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})+'까지':'',
+      payError:s.payErr,
+      payBtnText:s.paying?'주문 접수 중…':won(total)+' 계좌이체로 주문하기',
+      pay:async()=>{
+        if(s.paying)return;
+        const dep=(s.depositor||s.form.name).trim();
+        if(!dep)return this.setState({payErr:'입금자명을 입력해 주세요.'});
+        const orderId='SH'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+Math.random().toString(36).slice(2,6).toUpperCase();
+        const deadline=Date.now()+24*3600*1000;
+        const order={orderId,createdAt:new Date().toISOString(),product:'SAFEHOUSE 스마트 캐리어 '+sz.label,color:COLORS[s.color].name,qty:s.qty,amount:total,depositor:dep,cashReceipt:s.receipt,...s.form};
+        this.setState({paying:true,payErr:''});
+        try{
+          if(this.props.orderWebhook){await fetch(this.props.orderWebhook,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(order)});}
+          const all=JSON.parse(localStorage.getItem('sh_orders')||'[]');all.push(order);localStorage.setItem('sh_orders',JSON.stringify(all));
+          this.setState({step:3,orderNo:orderId,depositor:dep,deadline});
+        }catch(e){this.setState({payErr:'주문 접수에 실패했어요. 잠시 후 다시 시도해 주세요.'});}
+        finally{this.setState({paying:false});}
+      },
+      orderNo:s.orderNo
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0e0d0c;color:#ece6dc;font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#c9a978;text-decoration:none}a:hover{color:#e6cfa5}
+button{font-family:inherit}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#0e0d0c">
+
+  <div style="background:#c9a978;color:#1a1612;font-size:13px;text-align:center;padding:9px 16px;font-weight:500;letter-spacing:0.02em">런칭 기념 · 트래블 세트 구매 시 15% 할인 + {{ freeShipText }}</div>
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(14,13,12,0.92);backdrop-filter:blur(10px);border-bottom:1px solid #2a2622">
+    <div style="max-width:1280px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="display:flex;flex-direction:column;line-height:1.1;color:#ece6dc">
+        <span style="font-family:'Noto Serif KR',serif;font-size:19px;letter-spacing:0.18em;font-weight:600">SAFEHOUSE CAFÉ</span>
+        <span style="font-size:10px;letter-spacing:0.32em;color:#a39a8d;margin-top:3px">TRAVEL CARRIER</span>
+      </a>
+      <nav style="display:flex;gap:28px;font-size:14px;flex-wrap:wrap">
+        <a href="#shop" style="color:#ece6dc" style-hover="color:#c9a978">캐리어</a>
+        <a href="#shop" style="color:#ece6dc" style-hover="color:#c9a978">가방</a>
+        <a href="#shop" style="color:#ece6dc" style-hover="color:#c9a978">액세서리</a>
+        <a href="#set" style="color:#ece6dc" style-hover="color:#c9a978">트래블 세트</a>
+        <a href="#story" style="color:#ece6dc" style-hover="color:#c9a978">스토리</a>
+      </nav>
+      <button onClick="{{ openCart }}" style="background:transparent;border:1px solid #3a342d;color:#ece6dc;padding:9px 16px;font-size:13px;cursor:pointer;display:flex;gap:8px;align-items:center" style-hover="border-color:#c9a978">장바구니 <span style="background:#c9a978;color:#1a1612;min-width:20px;height:20px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;padding:0 6px">{{ cartCount }}</span></button>
+    </div>
+  </header>
+
+  <section id="top" style="max-width:1280px;margin:0 auto;padding:64px 28px 80px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px;align-items:center">
+    <div style="display:flex;flex-direction:column;gap:28px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">SIGNATURE CARRIER · 2026</span>
+      <h1 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(36px,5vw,60px);line-height:1.25;margin:0;text-wrap:pretty">평범한 일상 속,<br>특별한 당신을 위한 가방</h1>
+      <p style="font-size:17px;line-height:1.8;color:#b8afa2;margin:0;max-width:460px;text-wrap:pretty">지문 하나로 열리고, 어디서든 충전되고, 어둠 속에서 길을 밝힙니다. 당신의 모든 여정을 조용히 지켜주는 세이프하우스.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button onClick="{{ openHero }}" style="background:#c9a978;color:#1a1612;border:none;padding:16px 30px;font-size:15px;font-weight:700;cursor:pointer" style-hover="background:#dcbf8f">시그니처 캐리어 보기</button>
+        <a href="#shop" style="border:1px solid #3a342d;color:#ece6dc;padding:15px 28px;font-size:15px;display:inline-flex;align-items:center" style-hover="border-color:#c9a978">전체 컬렉션</a>
+      </div>
+      <div style="display:flex;gap:36px;padding-top:20px;border-top:1px solid #2a2622;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-family:'Noto Serif KR',serif">2년</span><span style="font-size:13px;color:#a39a8d">무상 보증</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-family:'Noto Serif KR',serif">30일</span><span style="font-size:13px;color:#a39a8d">무료 반품</span></div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-family:'Noto Serif KR',serif">TSA</span><span style="font-size:13px;color:#a39a8d">공인 잠금장치</span></div>
+      </div>
+    </div>
+    <div style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#171513">
+      <img src="assets/c_hero.png" alt="시그니처 캐리어" style="width:100%;height:100%;object-fit:cover;display:block">
+      <div style="position:absolute;left:20px;bottom:20px;background:rgba(14,13,12,0.85);padding:14px 18px;display:flex;flex-direction:column;gap:4px;border:1px solid #2a2622">
+        <span style="font-size:12px;color:#a39a8d">시그니처 캐리어 20"</span>
+        <span style="font-size:17px;font-weight:500">₩389,000</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #2a2622;border-bottom:1px solid #2a2622;background:#121110">
+    <div style="max-width:1280px;margin:0 auto;padding:72px 28px">
+      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:40px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">KEY FEATURES</span>
+          <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:34px;margin:0">이 캐리어가 특별한 이유</h2>
+        </div>
+        <p style="color:#a39a8d;font-size:15px;margin:0;max-width:380px;line-height:1.7">모든 시그니처 라인에 기본 탑재. 백팩·더플백에도 동일한 보안 기술이 적용됩니다.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="aspect-ratio:4/3;overflow:hidden;background:#171513"><img src="assets/c_finger2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <h3 style="margin:0;font-size:18px;font-weight:500">원터치 지문인식 TSA 잠금</h3>
+          <p style="margin:0;color:#a39a8d;font-size:14px;line-height:1.7">비밀번호 없이 0.3초 해제. 최대 10개 지문 등록, 공항 검색대 TSA 키 호환.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="aspect-ratio:4/3;overflow:hidden;background:#171513"><img src="assets/c_charge2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <h3 style="margin:0;font-size:18px;font-weight:500">Qi 무선충전 + USB 듀얼포트</h3>
+          <p style="margin:0;color:#a39a8d;font-size:14px;line-height:1.7">상단 패드에 휴대폰을 올리면 바로 충전. USB-C·A 고속 포트 동시 지원.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="aspect-ratio:4/3;overflow:hidden;background:#171513"><img src="assets/c_led.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <h3 style="margin:0;font-size:18px;font-weight:500">나이트 세이프티 LED 프레임</h3>
+          <p style="margin:0;color:#a39a8d;font-size:14px;line-height:1.7">일반·보행·경고 3가지 모드. 어두운 골목과 새벽 공항에서도 눈에 띕니다.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="aspect-ratio:4/3;overflow:hidden;background:#171513"><img src="assets/c_interior2.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <h3 style="margin:0;font-size:18px;font-weight:500">분리형 수납 공간</h3>
+          <p style="margin:0;color:#a39a8d;font-size:14px;line-height:1.7">노트북·의류·세면도구를 따로. 패킹 큐브와 함께 쓰면 공간이 두 배가 됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shop" style="max-width:1280px;margin:0 auto;padding:88px 28px">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">COLLECTION</span>
+        <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:34px;margin:0">여정을 위한 모든 것</h2>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onClick }}" style="background:{{ t.bg }};color:{{ t.fg }};border:1px solid {{ t.border }};padding:10px 18px;font-size:14px;cursor:pointer">{{ t.label }} <span style="opacity:0.6;font-size:12px">{{ t.count }}</span></button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:36px 24px">
+      <sc-for list="{{ products }}" as="p" hint-placeholder-count="8">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div onClick="{{ p.onOpen }}" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:#171513;cursor:pointer">
+            <sc-if value="{{ p.hasImg }}" hint-placeholder-val="{{ false }}">
+              <img src="{{ p.img }}" alt="{{ p.name }}" style="width:100%;height:100%;object-fit:cover;display:block">
+            </sc-if>
+            <sc-if value="{{ p.noImg }}" hint-placeholder-val="{{ true }}">
+              <div style="width:100%;height:100%;background:repeating-linear-gradient(135deg,#171513 0 10px,#1c1a17 10px 20px);display:flex;align-items:center;justify-content:center;padding:20px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a8175;text-align:center;line-height:1.6">{{ p.ph }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ p.badge }}" hint-placeholder-val="{{ false }}">
+              <span style="position:absolute;top:14px;left:14px;background:#c9a978;color:#1a1612;font-size:11px;font-weight:700;padding:5px 9px;letter-spacing:0.05em">{{ p.badge }}</span>
+            </sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:12px;color:#a39a8d">{{ p.catLabel }}</span>
+            <span onClick="{{ p.onOpen }}" style="font-size:16px;font-weight:500;cursor:pointer">{{ p.name }}</span>
+            <span style="font-size:13px;color:#a39a8d;line-height:1.6">{{ p.tagline }}</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto">
+            <span style="font-size:16px;font-weight:500">{{ p.priceText }}</span>
+            <button onClick="{{ p.onAdd }}" style="background:transparent;border:1px solid #3a342d;color:#ece6dc;padding:8px 14px;font-size:13px;cursor:pointer" style-hover="background:#c9a978;color:#1a1612;border-color:#c9a978">담기</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ showBundle }}" hint-placeholder-val="{{ true }}">
+  <section id="set" style="background:#171513;border-top:1px solid #2a2622;border-bottom:1px solid #2a2622">
+    <div style="max-width:1280px;margin:0 auto;padding:80px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:56px;align-items:center">
+      <div style="aspect-ratio:16/11;overflow:hidden;background:#0e0d0c"><img src="assets/c_lineup.png" alt="트래블 세트" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">TRAVEL SET · 15% OFF</span>
+        <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:34px;margin:0;line-height:1.35">떠날 준비는<br>한 번에 끝내세요</h2>
+        <div style="display:flex;flex-direction:column;border-top:1px solid #2a2622">
+          <sc-for list="{{ bundleItems }}" as="b" hint-placeholder-count="4">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid #2a2622;font-size:15px"><span>{{ b.name }}</span><span style="color:#a39a8d">{{ b.priceText }}</span></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+          <span style="font-size:16px;color:#8a8175;text-decoration:line-through">{{ bundleOrig }}</span>
+          <span style="font-size:30px;font-weight:700;color:#e6cfa5">{{ bundlePrice }}</span>
+        </div>
+        <button onClick="{{ addBundle }}" style="background:#c9a978;color:#1a1612;border:none;padding:16px 30px;font-size:15px;font-weight:700;cursor:pointer;align-self:start" style-hover="background:#dcbf8f">세트로 담기</button>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <section id="story" style="max-width:1280px;margin:0 auto;padding:96px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;align-items:stretch">
+    <div style="aspect-ratio:3/5;overflow:hidden;background:#171513"><img src="assets/scene_duffel.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:24px;padding:24px 12px">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.2em;color:#c9a978">EPISODE 01</span>
+      <h2 style="font-family:'Noto Serif KR',serif;font-weight:600;font-size:32px;margin:0;line-height:1.4">카페 앞에 놓인<br>의문의 가방</h2>
+      <p style="margin:0;color:#b8afa2;font-size:16px;line-height:1.9;text-wrap:pretty">말수는 적지만 손님들의 문제를 조용히 해결해 주는 카페 주인. 비 내린 새벽, 문 앞에 버려진 가방 하나가 평화롭던 일상 속에 잠들어 있던 본능을 깨웁니다.</p>
+      <p style="margin:0;font-family:'Noto Serif KR',serif;font-size:20px;line-height:1.6;color:#e6cfa5">"빛이 닿는 순간,<br>당신의 안전이 시작됩니다."</p>
+    </div>
+    <div style="aspect-ratio:3/5;overflow:hidden;background:#171513"><img src="assets/scene_carrier.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+  </section>
+
+  <section style="position:relative;overflow:hidden;border-top:1px solid #2a2622">
+    <div style="max-width:1280px;margin:0 auto;padding:72px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:32px">
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:500">무료 배송</span><span style="font-size:14px;color:#a39a8d;line-height:1.6">{{ freeShipText }}. 오후 2시 이전 주문 당일 출고.</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:500">30일 무료 반품</span><span style="font-size:14px;color:#a39a8d;line-height:1.6">사용해 보고 마음에 들지 않으면 그대로 돌려보내세요.</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:500">2년 무상 보증</span><span style="font-size:14px;color:#a39a8d;line-height:1.6">바퀴·손잡이·잠금장치·충전 모듈 모두 포함.</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:500">각인 서비스</span><span style="font-size:14px;color:#a39a8d;line-height:1.6">캐리어와 여권 지갑에 이니셜을 새겨 드립니다.</span></div>
+    </div>
+  </section>
+
+  <footer style="border-top:1px solid #2a2622;background:#0a0908">
+    <div style="max-width:1280px;margin:0 auto;padding:56px 28px;display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-family:'Noto Serif KR',serif;font-size:17px;letter-spacing:0.18em;font-weight:600">SAFEHOUSE CAFÉ</span>
+        <span style="font-size:13px;color:#8a8175">More than a carrier, it's your safehouse.</span>
+      </div>
+      <div style="display:flex;gap:48px;font-size:13px;color:#a39a8d;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:10px"><span style="color:#ece6dc">고객센터</span><span>1600-0000</span><span>평일 10:00 – 18:00</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px"><span style="color:#ece6dc">안내</span><a href="#" style="color:#a39a8d">배송 · 반품</a><a href="#" style="color:#a39a8d">A/S 접수</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <sc-if value="{{ detail }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeDetail }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:40;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div onClick="{{ stop }}" style="background:#151311;border:1px solid #2a2622;max-width:920px;width:100%;max-height:90vh;overflow:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+        <div style="background:#0e0d0c;min-height:360px;position:relative">
+          <sc-if value="{{ detail.hasImg }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ detail.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0">
+          </sc-if>
+          <sc-if value="{{ detail.noImg }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,#171513 0 10px,#1c1a17 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8a8175">{{ detail.ph }}</span></div>
+          </sc-if>
+        </div>
+        <div style="padding:36px 32px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;gap:12px"><span style="font-size:12px;color:#a39a8d">{{ detail.catLabel }}</span><button onClick="{{ closeDetail }}" style="background:none;border:none;color:#a39a8d;font-size:14px;cursor:pointer;padding:0">닫기 ✕</button></div>
+          <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:600;margin:0">{{ detail.name }}</h3>
+          <span style="font-size:22px;font-weight:500">{{ detail.priceText }}</span>
+          <p style="margin:0;color:#b8afa2;font-size:15px;line-height:1.8">{{ detail.desc }}</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ detail.specs }}" as="s" hint-placeholder-count="3">
+              <span style="font-size:14px;color:#b8afa2;padding-left:14px;border-left:1px solid #3a342d">{{ s }}</span>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <span style="font-size:13px;color:#a39a8d">색상 · {{ detailColorName }}</span>
+            <div style="display:flex;gap:10px">
+              <sc-for list="{{ detailColors }}" as="c" hint-placeholder-count="3">
+                <button onClick="{{ c.onClick }}" title="{{ c.name }}" style="width:34px;height:34px;border-radius:50%;background:{{ c.hex }};border:2px solid {{ c.ring }};outline:1px solid #0e0d0c;outline-offset:-4px;cursor:pointer"></button>
+              </sc-for>
+            </div>
+          </div>
+          <button onClick="{{ addDetail }}" style="background:#c9a978;color:#1a1612;border:none;padding:16px;font-size:15px;font-weight:700;cursor:pointer;margin-top:auto" style-hover="background:#dcbf8f">장바구니에 담기</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ cartOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeCart }}" style="position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:50;display:flex;justify-content:flex-end">
+      <div onClick="{{ stop }}" style="width:min(420px,100%);height:100%;background:#151311;border-left:1px solid #2a2622;display:flex;flex-direction:column">
+        <div style="padding:24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a2622"><span style="font-size:18px;font-weight:500">장바구니 ({{ cartCount }})</span><button onClick="{{ closeCart }}" style="background:none;border:none;color:#a39a8d;font-size:14px;cursor:pointer">닫기 ✕</button></div>
+        <div style="padding:14px 24px;border-bottom:1px solid #2a2622;display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:13px;color:#b8afa2">{{ shipMsg }}</span>
+          <div style="height:3px;background:#2a2622"><div style="height:3px;background:#c9a978;width:{{ shipPct }}"></div></div>
+        </div>
+        <div style="flex:1;overflow:auto;padding:8px 24px">
+          <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ true }}"><p style="color:#8a8175;font-size:14px;padding:40px 0;text-align:center;margin:0">장바구니가 비어 있습니다.</p></sc-if>
+          <sc-for list="{{ cartLines }}" as="l" hint-placeholder-count="0">
+            <div style="display:flex;gap:14px;padding:16px 0;border-bottom:1px solid #2a2622">
+              <div style="width:64px;height:80px;flex-shrink:0;background:repeating-linear-gradient(135deg,#171513 0 6px,#1c1a17 6px 12px);overflow:hidden">
+                <sc-if value="{{ l.hasImg }}" hint-placeholder-val="{{ false }}"><img src="{{ l.img }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></sc-if>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px;min-width:0">
+                <span style="font-size:14px">{{ l.name }}</span>
+                <span style="font-size:12px;color:#a39a8d">{{ l.colorName }}</span>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto">
+                  <div style="display:flex;align-items:center;border:1px solid #3a342d">
+                    <button onClick="{{ l.dec }}" style="background:none;border:none;color:#ece6dc;width:28px;height:28px;cursor:pointer">−</button>
+                    <span style="font-size:13px;min-width:20px;text-align:center">{{ l.qty }}</span>
+                    <button onClick="{{ l.inc }}" style="background:none;border:none;color:#ece6dc;width:28px;height:28px;cursor:pointer">+</button>
+                  </div>
+                  <span style="font-size:14px">{{ l.lineText }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding:24px;border-top:1px solid #2a2622;display:flex;flex-direction:column;gap:10px">
+          <sc-if value="{{ hasDiscount }}" hint-placeholder-val="{{ false }}"><div style="display:flex;justify-content:space-between;font-size:14px;color:#e6cfa5"><span>트래블 세트 할인</span><span>{{ discountText }}</span></div></sc-if>
+          <div style="display:flex;justify-content:space-between;font-size:14px;color:#a39a8d"><span>배송비</span><span>{{ shipFeeText }}</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:500"><span>합계</span><span>{{ totalText }}</span></div>
+          <button style="background:#c9a978;color:#1a1612;border:none;padding:16px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px" style-hover="background:#dcbf8f">주문하기</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#ece6dc;color:#1a1612;padding:12px 22px;font-size:14px;z-index:60;font-weight:500">{{ toast }}</div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showBundle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;freeShipThreshold&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:100000,&quot;min&quot;:0,&quot;max&quot;:500000,&quot;step&quot;:10000,&quot;unit&quot;:&quot;원&quot;,&quot;tsType&quot;:&quot;number&quot;}}">
+const GOLD={name:'샴페인 골드',hex:'#b59a74'},BLACK={name:'매트 블랙',hex:'#1f1d1b'},SILVER={name:'실버 그레이',hex:'#a7a9ab'},NAVY={name:'미드나잇 네이비',hex:'#232a3a'},BROWN={name:'코냑 브라운',hex:'#6b4a32'};
+const PRODUCTS=[
+ {id:'c20',cat:'carrier',name:'시그니처 캐리어 20"',tagline:'기내용 · 지문인식 · 무선충전 · LED',price:389000,img:'assets/c_hero.png',badge:'BEST',colors:[GOLD,BLACK,SILVER],desc:'세이프하우스의 모든 기술을 담은 기내용 캐리어. 지문 하나로 열리고, 휴대폰을 올려두면 충전되며, 어둠 속에서는 LED 프레임이 길을 밝힙니다.',specs:['55 × 36 × 23 cm · 3.3kg','폴리카보네이트 + 알루미늄 프레임','지문인식 TSA 잠금 · Qi 무선충전 · USB 듀얼포트']},
+ {id:'c26',cat:'carrier',name:'시그니처 캐리어 26"',tagline:'위탁용 · 7~10일 여행',price:459000,img:'assets/c_lineup.png',colors:[GOLD,BLACK,SILVER],desc:'긴 여행을 위한 위탁용 사이즈. 20"와 동일한 보안·충전·LED 기능에 확장 지퍼로 수납을 20% 늘릴 수 있습니다.',specs:['68 × 45 × 28 cm · 4.6kg','확장 지퍼 +20%','360° 저소음 더블 휠']},
+ {id:'duffel',cat:'bag',name:'나이트 더플백',tagline:'방수 · 숨김 포켓 · 캐리어 결착',price:189000,img:'assets/scene_duffel.png',badge:'NEW',colors:[BLACK,NAVY],desc:'에피소드 속 "카페 앞의 의문의 가방". 생활방수 원단과 등판 숨김 포켓, 캐리어 손잡이에 끼우는 슬리브까지 갖춘 주말 여행용 더플백.',specs:['45L · 1.1kg','생활방수 코팅 나일론','반사 로고 · 캐리어 슬리브']},
+ {id:'pack',cat:'bag',name:'시큐어 스마트 백팩',tagline:'지문 잠금 지퍼 · 16" 노트북',price:229000,ph:'제품 사진\n스마트 백팩',colors:[BLACK,SILVER],desc:'메인 지퍼에 소형 지문 잠금을 달아 출퇴근과 출장에서도 안심. 측면 USB 포트로 가방 속 보조배터리와 연결됩니다.',specs:['22L · 16" 노트북 수납','지문 잠금 메인 지퍼','RFID 차단 앞포켓 · USB-C 패스스루']},
+ {id:'tag',cat:'acc',name:'트래커 러기지 태그',tagline:'분실 방지 · 스마트폰 위치 추적',price:39000,ph:'제품 사진\n러기지 태그',colors:[GOLD,BLACK],desc:'가죽 네임태그 안에 위치 추적 모듈을 넣었습니다. 수하물이 어디 있는지 휴대폰으로 확인하세요.',specs:['베지터블 가죽','iOS · Android 위치 추적 호환','교체형 배터리 1년']},
+ {id:'wallet',cat:'acc',name:'RFID 차단 여권 지갑',tagline:'여권 · 카드 · 탑승권 한 번에',price:59000,ph:'제품 사진\n여권 지갑',colors:[BLACK,BROWN],desc:'카드 스키밍을 막는 RFID 차단 레이어. 여권, 카드 4장, 탑승권과 펜 홀더까지.',specs:['RFID 차단 라이닝','카드 슬롯 4 · 펜 홀더','이니셜 각인 무료']},
+ {id:'cube',cat:'acc',name:'압축 패킹 큐브 4종',tagline:'캐리어 분리 수납에 꼭 맞는 사이즈',price:49000,ph:'제품 사진\n패킹 큐브 세트',colors:[BLACK,SILVER],desc:'시그니처 캐리어 내부 치수에 맞춘 4종 세트. 압축 지퍼로 의류 부피를 최대 40% 줄입니다.',specs:['L·M·S 큐브 + 신발 파우치','압축 지퍼','통기 메시 창']},
+ {id:'power',cat:'acc',name:'마그네틱 보조배터리',tagline:'10,000mAh · 캐리어 도킹',price:69000,ph:'제품 사진\n보조배터리',colors:[BLACK,GOLD],desc:'캐리어 충전 모듈에 자석으로 도킹되는 보조배터리. 빼서 들고 다니면 휴대용 무선충전기가 됩니다.',specs:['10,000mAh · 기내 반입 가능','마그네틱 무선충전 15W','USB-C PD 20W']}
+];
+const CATS=[['all','전체'],['carrier','캐리어'],['bag','가방'],['acc','액세서리']];
+const BUNDLE=['c20','tag','wallet','cube'];
+const won=n=>'₩'+n.toLocaleString('ko-KR');
+class Component extends DCLogic {
+  state={cat:'all',cart:[],cartOpen:false,detailId:null,detailColor:0,toast:null};
+  add(id,ci=0,qty=1,silent){
+    this.setState(s=>{const cart=[...s.cart];const i=cart.findIndex(l=>l.id===id&&l.ci===ci);if(i>=0)cart[i]={...cart[i],qty:cart[i].qty+qty};else cart.push({id,ci,qty});return {cart};});
+    if(!silent)this.flash(PRODUCTS.find(p=>p.id===id).name+' 을(를) 담았습니다');
+  }
+  flash(t){this.setState({toast:t});clearTimeout(this._t);this._t=setTimeout(()=>this.setState({toast:null}),1800);}
+  renderVals(){
+    const s=this.state,threshold=this.props.freeShipThreshold??100000,showBundle=this.props.showBundle??true;
+    const find=id=>PRODUCTS.find(p=>p.id===id);
+    const deco=p=>({...p,hasImg:!!p.img,noImg:!p.img,priceText:won(p.price),catLabel:CATS.find(c=>c[0]===p.cat)[1],badge:p.badge||'',ph:p.ph||''});
+    const list=PRODUCTS.filter(p=>s.cat==='all'||p.cat===s.cat).map(p=>({...deco(p),onOpen:()=>this.setState({detailId:p.id,detailColor:0}),onAdd:()=>this.add(p.id)}));
+    const tabs=CATS.map(([k,l])=>{const on=s.cat===k;return {label:l,count:k==='all'?PRODUCTS.length:PRODUCTS.filter(p=>p.cat===k).length,bg:on?'#ece6dc':'transparent',fg:on?'#1a1612':'#ece6dc',border:on?'#ece6dc':'#3a342d',onClick:()=>this.setState({cat:k})};});
+    const dp=s.detailId?find(s.detailId):null;
+    const lines=s.cart.map((l,i)=>{const p=find(l.id);const upd=d=>this.setState(st=>{const c=[...st.cart];const q=c[i].qty+d;if(q<=0)c.splice(i,1);else c[i]={...c[i],qty:q};return {cart:c};});return {name:p.name,colorName:p.colors[l.ci].name,qty:l.qty,img:p.img||'',hasImg:!!p.img,lineText:won(p.price*l.qty),inc:()=>upd(1),dec:()=>upd(-1)};});
+    const subtotal=s.cart.reduce((a,l)=>a+find(l.id).price*l.qty,0);
+    const sets=showBundle?Math.min(...BUNDLE.map(id=>s.cart.filter(l=>l.id===id).reduce((a,l)=>a+l.qty,0))):0;
+    const bundleOrigN=BUNDLE.reduce((a,id)=>a+find(id).price,0);
+    const discount=Math.round(bundleOrigN*0.15/1000)*1000*sets;
+    const after=subtotal-discount;
+    const fee=after===0||after>=threshold?0:3000;
+    const remain=Math.max(0,threshold-after);
+    return {
+      freeShipText:won(threshold)+' 이상 무료배송',
+      cartCount:s.cart.reduce((a,l)=>a+l.qty,0),
+      openCart:()=>this.setState({cartOpen:true}),closeCart:()=>this.setState({cartOpen:false}),
+      openHero:()=>this.setState({detailId:'c20',detailColor:0}),
+      tabs,products:list,showBundle,
+      bundleItems:BUNDLE.map(id=>({name:find(id).name,priceText:won(find(id).price)})),
+      bundleOrig:won(bundleOrigN),bundlePrice:won(bundleOrigN-Math.round(bundleOrigN*0.15/1000)*1000),
+      addBundle:()=>{BUNDLE.forEach(id=>this.add(id,0,1,true));this.flash('트래블 세트를 담았습니다 · 15% 할인 적용');},
+      detail:dp?deco(dp):null,
+      detailColorName:dp?dp.colors[s.detailColor].name:'',
+      detailColors:dp?dp.colors.map((c,i)=>({name:c.name,hex:c.hex,ring:i===s.detailColor?'#c9a978':'#3a342d',onClick:()=>this.setState({detailColor:i})})):[],
+      addDetail:()=>{this.add(dp.id,s.detailColor);this.setState({detailId:null});},
+      closeDetail:()=>this.setState({detailId:null}),stop:e=>e.stopPropagation(),
+      cartOpen:s.cartOpen,cartLines:lines,cartEmpty:lines.length===0,
+      shipMsg:remain>0?won(remain)+' 더 담으면 무료배송':'무료배송 조건을 달성했어요',
+      shipPct:Math.min(100,Math.round(after/threshold*100))+'%',
+      hasDiscount:discount>0,discountText:'−'+won(discount),
+      shipFeeText:fee?won(fee):'무료',totalText:won(after+fee),
+      toast:s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>
